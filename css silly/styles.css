@@ -1,0 +1,37 @@
+.sigma {
+    border: 3px solid rgb(44, 40, 40);
+    border-radius: 10px;
+   box-shadow: 0 0 30px ;
+   width:20vw;
+    height: 20vh;
+    
+  }
+  
+   
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:20vw;
+    height: 20vh;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh; /* Full height */
+      
+
+
+  }
+  #Testsilly {
+    font-size: 70px;
+    color: aqua;
+    transform: rotate(calc(-7deg + 15deg));
+    text-align: center;
+
+}
