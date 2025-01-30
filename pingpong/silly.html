@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Game</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to top, black 0%, rgb(0, 0, 0) 50%, rgb(2, 1, 0) 75%, rgb(163, 117, 0) 100%);
+            background-size: 100% 200%;
+            background-position: 0% 100%;
+            color: white;
+            overflow: hidden;
+            transition: background-position 0.5s ease, opacity 1s ease;
+            animation: pulse 2s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        canvas {
+            border: 2px solid white;
+            background-color: black;
+            transition: opacity 1s ease-out;
+        }
+
+        #winScreen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 48px;
+            text-align: center;
+            color: white;
+            display: none;
+            opacity: 0;
+            animation: winAnimation 1s forwards;
+        }
+
+        #winScreen p {
+            margin: 0;
+        }
+
+        @keyframes winAnimation {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <canvas id="pongCanvas" width="1000" height="500"></canvas>
+
+    <!-- Audio elements for sound effects -->
+    <audio id="hitSound" src="hit.mp3"></audio> <!-- Replace with your audio file path -->
+    <audio id="scoreSound" src="score.mp3"></audio> <!-- Replace with your audio file path -->
+
+    <!-- Win screen -->
+    <div id="winScreen">
+        <p id="winnerMessage"></p>
+        <p>Press F5 to restart</p>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('pongCanvas');
+        const ctx = canvas.getContext('2d');
+        const winScreen = document.getElementById('winScreen');
+        const winnerMessage = document.getElementById('winnerMessage');
+
+        // Ball properties
+        const ball = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            radius: 10,
+            dx: 2,
+            dy: 2,
+            speed: 2
+        };
+
+        // Paddle properties
+        const paddleWidth = 10;
+        const paddleHeight = 100;
+
+        const player = {
+            x: 0,
+            y: (canvas.height - paddleHeight) / 2,
+            score: 0,
+            dy: 0,
+            color: '#fcd7d7'  // Player's new color
+        };
+
+        const ai = {
+            x: canvas.width - paddleWidth,
+            y: (canvas.height - paddleHeight) / 2,
+            score: 0,
+            dy: 0,
+            color: '#ccf0ff'  // AI's new color
+        };
+
+        const keys = {};
+
+        // Track key states
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+        });
+
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+
+        function movePaddles() {
+            // Player paddle movement
+            if (keys['w']) player.y -= 5;
+            if (keys['s']) player.y += 5;
+
+            // AI paddle movement
+            if (keys['ArrowUp']) ai.y -= 5;
+            if (keys['ArrowDown']) ai.y += 5;
+
+            // Prevent paddles from going out of bounds
+            if (player.y < 0) player.y = 0;
+            if (player.y + paddleHeight > canvas.height) player.y = canvas.height - paddleHeight;
+
+            if (ai.y < 0) ai.y = 0;
+            if (ai.y + paddleHeight > canvas.height) ai.y = canvas.height - paddleHeight;
+        }
+
+        // Draw Ball
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // Draw Paddle
+        function drawPaddle(x, y, color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, paddleWidth, paddleHeight);
+
+            // Draw a small colored line at the top of the paddle
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + paddleWidth, y);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        // Draw the net
+        function drawNet() {
+            ctx.beginPath();
+            ctx.setLineDash([10, 10]);
+            ctx.moveTo(canvas.width / 2, 0);
+            ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.strokeStyle = 'white';
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        // Draw the score
+        function drawScore() {
+            ctx.font = '24px Arial';
+            ctx.fillText(player.score, canvas.width / 4, 30);
+            ctx.fillText(ai.score, (3 * canvas.width) / 4, 30);
+        }
+
+        // Play sound for ball hit
+        function playHitSound() {
+            const hitSound = document.getElementById('hitSound');
+            hitSound.currentTime = 0; // Rewind to the start
+            hitSound.play();
+        }
+
+        // Play sound for scoring
+        function playScoreSound() {
+            const scoreSound = document.getElementById('scoreSound');
+            scoreSound.currentTime = 0; // Rewind to the start
+            scoreSound.play();
+        }
+
+        // Update ball position
+        function updateBall() {
+            if (ball.dx === 0 && ball.dy === 0) return; // Stop the ball if the game is over
+
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+
+            // Wall collision
+            if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
+                ball.dy *= -1;
+            }
+
+            // Paddle collision
+            if (
+                ball.x - ball.radius < player.x + paddleWidth &&
+                ball.y > player.y &&
+                ball.y < player.y + paddleHeight
+            ) {
+                ball.dx = -ball.dx;
+                ball.speed += 0.5;
+                ball.dx = ball.dx > 0 ? ball.speed : -ball.speed;
+                ball.dy = ball.dy > 0 ? ball.speed : -ball.speed;
+                playHitSound();  // Play hit sound
+                updateBackgroundSpeed();
+            }
+
+            if (
+                ball.x + ball.radius > ai.x &&
+                ball.y > ai.y &&
+                ball.y < ai.y + paddleHeight
+            ) {
+                ball.dx = -ball.dx;
+                ball.speed += 0.5;
+                ball.dx = ball.dx > 0 ? ball.speed : -ball.speed;
+                ball.dy = ball.dy > 0 ? ball.speed : -ball.speed;
+                playHitSound();  // Play hit sound
+                updateBackgroundSpeed();
+            }
+
+            // Scoring
+            if (ball.x - ball.radius < 0) {
+                ai.score++;
+                playScoreSound();  // Play score sound
+                resetBall();
+            }
+
+            if (ball.x + ball.radius > canvas.width) {
+                player.score++;
+                playScoreSound();  // Play score sound
+                resetBall();
+            }
+
+            // Check for win condition (for testing, the score to win is set to 3)
+            if (player.score >= 2) {
+                showWinScreen('Player 1 Wins!');
+                stopBall();
+                fadeOutField();
+            } else if (ai.score >= 2) {
+                showWinScreen('player 2 Wins!');
+                stopBall();
+                fadeOutField();
+            }
+        }
+
+        function resetBall() {
+            ball.x = canvas.width / 2;
+            ball.y = canvas.height / 2;
+            ball.speed = 2; // Reset speed
+            ball.dx = ball.speed * (Math.random() > 0.5 ? 1 : -1);
+            ball.dy = ball.speed * (Math.random() > 0.5 ? 1 : -1);
+            document.body.style.backgroundPosition = "0% 100%"; // Reset background position
+            document.body.style.opacity = 0; // Fade out
+        }
+
+        function updateBackgroundSpeed() {
+            const progress = Math.min(100, ball.speed * 10); // Calculate progress based on speed
+            const opacity = Math.min(1, ball.speed / 10); // Adjust opacity as speed increases
+            document.body.style.backgroundPosition = `0% ${100 - progress}%`;
+            document.body.style.opacity = opacity; // Gradually fade in
+        }
+
+        // Stop the ball after the game ends
+        function stopBall() {
+            ball.dx = 0;
+            ball.dy = 0;
+        }
+
+        // Fade out the field
+        function fadeOutField() {
+            canvas.style.opacity = 0;
+        }
+
+        // Show the win screen
+        function showWinScreen(winner) {
+            winScreen.style.display = 'block';
+            winnerMessage.textContent = winner;
+            cancelAnimationFrame(gameLoopId);  // Stop the game loop
+        }
+
+        // Game loop
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            drawNet();
+            drawScore();
+            drawBall();
+            drawPaddle(player.x, player.y, player.color); // Pass player color
+            drawPaddle(ai.x, ai.y, ai.color); // Pass AI color
+
+            movePaddles();
+            updateBall();
+
+            gameLoopId = requestAnimationFrame(gameLoop);
+        }
+
+        let gameLoopId = requestAnimationFrame(gameLoop);
+    </script>
+</body>
+</html>
