@@ -2,8 +2,8 @@ html {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: x-large;
     display: flex;
-    height: 100%;
-    justify-content: center; /* Centers horizontally */
+    height: 4%;
+    justify-content: center;
     background-color: rgb(255, 255, 255);
 
        
@@ -19,8 +19,8 @@ html {
       
         display: flex;
          margin: auto;
-        justify-content: center; /* Centers horizontally */
-        align-items: center;     /* Centers vertically */
+        justify-content: center; 
+        align-items: center;    
         outline: inset 3px rgb(0, 255, 200);
         box-shadow: inset 4px 4px 10px 2px  rgb(0, 0, 0), inset -4px -4px 10px 2px white, 0px 0px 10px 8px rgb(53, 53, 53);
         background: rgb(227,19,19);
@@ -37,8 +37,8 @@ background: linear-gradient(40deg, rgba(227,19,19,1) 35%, rgba(148,19,0,1) 100%)
     height: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: center; /* Centers horizontally */
-    align-items: center;     /* Centers vertically */
+    justify-content: center;
+    align-items: center;     
 
 
 
