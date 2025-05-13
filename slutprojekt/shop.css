@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: #fff;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .logo {
+    height: 100px;
+  }
+  
+  .nav {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .shop-section {
+    padding: 60px 40px;
+    background: #f9f9f9;
+    text-align: center;
+  }
+  
+  .shop-title {
+    font-size: 32px;
+    color: #0d6e7a;
+    margin-bottom: 40px;
+  }
+  
+  .products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+  }
+  
+  .product {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 530px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    position: relative;
+    transition: transform 0.2s ease;
+  }
+  
+  .product:hover {
+    transform: translateY(-5px);
+  }
+  
+  .product-img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .product-name {
+    font-size: 18px;
+    margin: 15px 0 5px;
+    color: #000;
+  }
+  
+  .product-price {
+    font-size: 16px;
+    color: #63b44b;
+    font-weight: bold;
+  }
+  
+  .preorder-label {
+    display: inline-block;
+    background: #f29101;
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+  .footer {
+    background-color: #070606;
+    color: #ccc;
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 14px;
+    border-top: 1px solid #333;
+  }
+  
+  .footer-content p {
+    margin: 10px 0;
+  }
+  
