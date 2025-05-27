@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #fff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1vh 4vh;
+  border-bottom: 0.5vh solid #ff9100;
+}
+
+.logo {
+  height: 11vh;
+}
+
+.nav {
+  display: flex;
+  gap: 1.3vh;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  font-size: 1.7vh;
+}
+
+.footer {
+  background-color: #070606;
+  color: #ffffff;
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 2vh;
+  border-top: 1px solid #333;
+}
+
+.footer-content p {
+  margin: 1vh 0;
+}
+
+/* --- About Page Styles --- */
+
+.about {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3vh;
+  padding: 4vh 6vw;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.about-text {
+  flex: 1 1 500px;
+}
+
+.about-text h1 {
+  font-size: 4vh;
+  margin-bottom: 2vh;
+  color: #1499aa;
+}
+
+.about-text p {
+  font-size: 2.1vh;
+  line-height: 1.6;
+  margin-bottom: 2vh;
+}
+
+.about-text .signature {
+  font-style: italic;
+  color: #555;
+}
+
+.about-images {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.about-images img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
