@@ -3,10 +3,15 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
+  @font-face {
+    font-family: 'DeterminationMono';
+    src: url('fonts/determination-mono.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
   body, html {
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: 'DeterminationMono', monospace;
     background: #fff;
   }
   

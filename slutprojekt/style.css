@@ -3,11 +3,18 @@
   padding: 0;
   box-sizing: border-box;
 }
+@font-face {
+  font-family: 'DeterminationMono';
+  src: url('fonts/determination-mono.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 body, html {
   height: 100%;
-  font-family: Arial, sans-serif;
+  font-family: 'DeterminationMono', monospace;
   background: #fff;
+
 }
 
 .container {
@@ -52,8 +59,8 @@ body, html {
   width: 100%;
   height: auto;
   display: block;
-  
 }
+
 
 
 .players {
@@ -114,18 +121,27 @@ body, html {
 }
 
 
-.sponsors {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  padding: 40px 20px;
-  flex-wrap: wrap;
+.sponsors-carousel {
+  overflow: hidden;
   border-top: 1px solid #eee;
   background-color: #ffffff;
+  height: 14vh;
+  position: relative;
 }
 
-.sponsors img {
+.sponsor-track {
+  display: flex;
+  align-items: center;
+  gap: 4vh;
+  animation: scrollSponsors 30s linear infinite;
+  will-change: transform;
+}
+
+.sponsors-carousel:hover .sponsor-track {
+  animation-play-state: paused;
+}
+
+.sponsor-track a img {
   height: 10vh;
   object-fit: contain;
   filter: grayscale(100%);
@@ -133,10 +149,20 @@ body, html {
   transition: filter 0.3s, opacity 0.3s;
 }
 
-.sponsors img:hover {
+.sponsor-track a img:hover {
   filter: grayscale(0%);
   opacity: 1;
 }
+
+@keyframes scrollSponsors {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 
 
 .footer {

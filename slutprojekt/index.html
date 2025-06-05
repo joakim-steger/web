@@ -16,8 +16,8 @@
       <nav class="nav">
        
         <a href="shop.html">SHOP</a>
-        <a href="othermembers.html">OTHER MEMBERS</a>
-        <a href="fastpass.html">FAST PASS</a>
+        <a href="othermembers.html">OTHER-MEMBERS</a>
+        <a href="fastpass.html">FAST-PASS</a>
         <a href="partners.html">PARTNERS</a>
         <a href="about.html">ABOUT</a>
       </nav>
@@ -25,11 +25,12 @@
 
     <main class="main-video">
       <video autoplay muted loop playsinline>
-        <source src="bg.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+        <source src="bg.mp4" type="video/mp4"> 
+        Your browser does not support the video tag.  <!-- this needs to be changed yep yep -->
       </video>
     </main>
-
+  
+    
     <section class="players">
       <div class="player">
      
@@ -73,16 +74,32 @@
       </div>
     </section>
 
-    <section class="sponsors">
-     <a href="https://boatlabs.net/">    <img src="sponsor1.png" alt="Sponsor 1"></a> 
-    <a  href="silly.com">  <img src="sponsor2.png" alt="Sponsor 2"> </a> 
-     <a  href="silly.com">    <img src="sponsor3.png" alt="Sponsor 3"></a>  
-    <a  href="silly.com">    <img src="sponsor4.png" alt="Sponsor 4"> </a> 
-    <a  href="silly.com">   <img src="sponsor5.png" alt="Sponsor 5"></a> 
-    <a  href="silly.com">     <img src="sponsor6.png" alt="Sponsor 6"></a> 
-    <a  href="silly.com">   <img src="sponsor7.png" alt="Sponsor 7"> </a> 
+    <section class="sponsors-carousel">
+      <div class="sponsor-track">
+        <a href="https://boatlabs.net/"><img src="sponsor1.png" alt="Sponsor 1"></a>
+        <a href="silly.com"><img src="sponsor2.png" alt="Sponsor 2"></a>
+        <a href="silly.com"><img src="sponsor3.png" alt="Sponsor 3"></a>
+        <a href="silly.com"><img src="sponsor4.png" alt="Sponsor 4"></a>
+        <a href="silly.com"><img src="sponsor5.png" alt="Sponsor 5"></a>
+        <a href="silly.com"><img src="sponsor6.png" alt="Sponsor 6"></a>
+        <a href="silly.com"><img src="sponsor7.png" alt="Sponsor 7"></a>
+    
+      
+        <a href="https://boatlabs.net/"><img src="sponsor1.png" alt="Sponsor 1 copy"></a>
+        <a href="silly.com"><img src="sponsor2.png" alt="Sponsor 2 copy"></a>
+        <a href="silly.com"><img src="sponsor3.png" alt="Sponsor 3 copy"></a>
+        <a href="silly.com"><img src="sponsor4.png" alt="Sponsor 4 copy"></a>
+        <a href="silly.com"><img src="sponsor5.png" alt="Sponsor 5 copy"></a>
+        <a href="silly.com"><img src="sponsor6.png" alt="Sponsor 6 copy"></a>
+        <a href="silly.com"><img src="sponsor7.png" alt="Sponsor 7 copy"></a>
+      </div>
     </section>
-
+    
+    <script>
+      const track = document.querySelector('.sponsor-track');
+      track.innerHTML += track.innerHTML; // thank the lord for AI coding
+    </script>
+    
     <footer class="footer">
       <div class="footer-content">
         <p>&copy; Mac'lurkin. All rights reserved.</p>
