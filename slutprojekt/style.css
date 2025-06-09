@@ -4,15 +4,15 @@
   box-sizing: border-box;
 }
 @font-face {
-  font-family: 'DeterminationMono';
-  src: url('fonts/determination-mono.otf') format('opentype');
+  font-family: 'HelveticaNeueBold';
+  src: url('fonts/HelveticaNeueBold.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 body, html {
   height: 100%;
-  font-family: 'DeterminationMono', monospace;
+  font-family: 'HelveticaNeueBold', monospace;
   background: #fff;
 
 }
